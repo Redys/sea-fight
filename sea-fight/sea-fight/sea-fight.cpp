@@ -4,7 +4,7 @@
 #include <windows.h>
 
 using namespace std;
-
+//Redys
 enum ConsoleColor
 {
 	BLACK = 0,
