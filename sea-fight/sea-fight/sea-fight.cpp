@@ -5,6 +5,8 @@
 
 using namespace std;
 //Redys
+const int POLE_SIZE=10;
+
 enum ConsoleColor
 {
 	BLACK = 0,
@@ -24,16 +26,24 @@ enum ConsoleColor
 	YELLOW = FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN,
 	WHITE = FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE,
 };
+int check(int x1, int x2, int y1, int y2, int k);
 
 void otrisovka(int pole[][10])
 {
-	cout << " 1 2 3 4 5 6 7 8 9 10" << endl;
-	char k = 'A';
-	for (int i = 0; i < 10; i++)
+	system("cls");
+	cout << "   А Б В Г Д Е Ж З И К" << endl;
+	int k = 1;
+	for (int i = 0; i < POLE_SIZE; i++)
 	{
-		cout << k;
+		
+		if (k < POLE_SIZE){
+			cout << " " << k;
+		}
+		else {
+			cout << k;
+		}
 		++k;
-		for (int j = 0; j < 10; j++)
+		for (int j = 0; j < POLE_SIZE; j++)
 		{
 			switch (pole[i][j])
 			{
@@ -45,9 +55,10 @@ void otrisovka(int pole[][10])
 			}
 		}
 		cout << endl;
+
 	}
 }
-int check(int x1, int x2, int y1, int y2, int k);
+
 void four(int pole[][10]){
 	int x1 = 0, x2 = 0, y1 = 0, y2 = 0, k = 3;
 	while (true){
@@ -76,8 +87,8 @@ void four(int pole[][10]){
 		maxY = y2;
 		minY = y1;
 	}
-	for (int i = 0; i < 10; i++){
-		for (int j = 0; j < 10; j++){
+	for (int i = 0; i < POLE_SIZE; i++){
+		for (int j = 0; j < POLE_SIZE; j++){
 
 			if (i >= minY&&i <= maxY){
 				if (j >= minX&&j <= maxX){
@@ -93,6 +104,116 @@ void four(int pole[][10]){
 		}
 	}
 }
+void three(int pole[][10]){
+	int x1 = 0, x2 = 0, y1 = 0, y2 = 0, k = 2;
+		while (true){
+			cout << "Введите координаты начала трехпалубного корабля (X,Y): ";
+			cin >> x1 >> y1;
+			cout << "Введите координаты конца трехпалубного корабля (X,Y): ";
+			cin >> x2 >> y2;
+			if (check(x1, x2, y1, y2, k) == 1){
+				break;
+			}
+		}
+		int maxX = 0, maxY = 0, minX = 0, minY = 0;
+		
+		if (x1 > x2){
+			maxX = x1;
+			minX = x2;
+		}
+		else{
+			maxX = x2;
+			minX = x1;
+		}
+		if (y1 > y2){
+			maxY = y1;
+			minY = y2;
+		}
+		else{
+			maxY = y2;
+			minY = y1;
+		}		//Нахождение максимального и минимального
+
+		for (int i = 0; i < POLE_SIZE; i++){
+			for (int j = 0; j < POLE_SIZE; j++){
+
+				if (i >= minY&&i <= maxY){
+					if (j >= minX&&j <= maxX){
+						pole[i - 1][j - 1] = 2;
+					}
+					else{
+
+					}
+				}
+				else{
+
+				}
+			}
+		}
+}
+void two(int pole[][10]){
+	int x1 = 0, x2 = 0, y1 = 0, y2 = 0, k = 1;
+		while (true){
+			cout << "Введите координаты начала двухпалубного корабля (X,Y): ";
+			cin >> x1 >> y1;
+			cout << "Введите координаты конца двухпалубного корабля (X,Y): ";
+			cin >> x2 >> y2;
+			if (check(x1, x2, y1, y2, k) == 1){
+				break;
+			}
+		}
+		int maxX = 0, maxY = 0, minX = 0, minY = 0;
+
+		if (x1 > x2){
+			maxX = x1;
+			minX = x2;
+		}
+		else{
+			maxX = x2;
+			minX = x1;
+		}
+		if (y1 > y2){
+			maxY = y1;
+			minY = y2;
+		}
+		else{
+			maxY = y2;
+			minY = y1;
+		}		//Нахождение максимального и минимального
+
+		for (int i = 0; i < POLE_SIZE; i++){
+			for (int j = 0; j < POLE_SIZE; j++){
+
+				if (i >= minY&&i <= maxY){
+					if (j >= minX&&j <= maxX){
+						pole[i - 1][j - 1] = 2;
+					}
+					else{
+
+					}
+				}
+				else{
+
+				}
+			}
+		}
+
+}
+void one(int pole[][10]){
+
+	int x = 0, y = 0;
+	cout << "Введите координаты однопалубного корабля (X,Y): ";
+	cin >> x >> y;
+
+	for (int i = 0; i < POLE_SIZE; i++){
+		for (int j = 0; j < POLE_SIZE; j++){
+			if (i == y&&j == x){
+				pole[i-1][j-1] = 2;
+			}
+		}
+	}
+}
+
 //Коммент
 int check(int x1, int x2, int y1, int y2, int k){
 	if (abs(x1 - x2) == k){
@@ -140,8 +261,41 @@ int main()
 	int pole[10][10] = { 0 };
 
 	otrisovka(pole);
-
 	four(pole);
+	otrisovka(pole);
+
+
+
+	three(pole);
+	otrisovka(pole);
+
+	three(pole);
+	otrisovka(pole);
+
+
+
+
+	two(pole);
+	otrisovka(pole);
+
+	two(pole);
+	otrisovka(pole);
+
+	two(pole);
+	otrisovka(pole);
+
+
+
+	one(pole);
+	otrisovka(pole);
+
+	one(pole);
+	otrisovka(pole);
+
+	one(pole);
+	otrisovka(pole);
+
+	one(pole);
 	otrisovka(pole);
 
 	cin.get();
