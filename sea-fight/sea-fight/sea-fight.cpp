@@ -4,7 +4,7 @@
 #include <windows.h>
 
 using namespace std;
-//Redys
+
 enum ConsoleColor
 {
 	BLACK = 0,
@@ -93,7 +93,7 @@ void four(int pole[][10]){
 		}
 	}
 }
-//Коммент
+
 int check(int x1, int x2, int y1, int y2, int k){
 	if (abs(x1 - x2) == k){
 		if (abs(y1 - y2) == k){
