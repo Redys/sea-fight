@@ -2,7 +2,9 @@
 #include <cmath>
 #include <ctime>
 #include <windows.h>
-#define POLE_SIZE 10
+
+#define FIELD_SIZE 10 //Размер поля
+
 using namespace std;
 
 enum ConsoleColor
@@ -24,24 +26,21 @@ enum ConsoleColor
 	YELLOW = FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN,
 	WHITE = FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE,
 };
-int check(int x1, int x2, int y1, int y2, int k);
+int check(int x1, int x2, int y1, int y2, int k); //объявление функции проверки правильности координат
 
 void otrisovka(int pole[][10])
 {
 	system("cls");
 	cout << "   А Б В Г Д Е Ж З И К" << endl;
-	int k = 1;
-	for (int i = 0; i < POLE_SIZE; i++)
+	int numbers = 1;
+	for (int i = 0; i < FIELD_SIZE; i++)
 	{
-		
-		if (k < POLE_SIZE){
-			cout << " " << k;
-		}
-		else {
-		cout << k;
-		}
-		++k;
-		for (int j = 0; j < POLE_SIZE; j++)
+		if (numbers < FIELD_SIZE)
+			cout << " " << numbers;
+		else 
+			cout << numbers;
+		++numbers;
+		for (int j = 0; j < FIELD_SIZE; j++)
 		{
 			switch (pole[i][j])
 			{
@@ -85,8 +84,8 @@ void four(int pole[][10]){
 		maxY = y2;
 		minY = y1;
 	}
-	for (int i = 0; i < POLE_SIZE; i++){
-		for (int j = 0; j < POLE_SIZE; j++){
+	for (int i = 0; i < FIELD_SIZE; i++){
+		for (int j = 0; j < FIELD_SIZE; j++){
 
 			if (i >= minY&&i <= maxY){
 				if (j >= minX&&j <= maxX){
@@ -132,8 +131,8 @@ void three(int pole[][10]){
 			minY = y1;
 		}		//Нахождение максимального и минимального
 
-		for (int i = 0; i < POLE_SIZE; i++){
-			for (int j = 0; j < POLE_SIZE; j++){
+		for (int i = 0; i < FIELD_SIZE; i++){
+			for (int j = 0; j < FIELD_SIZE; j++){
 
 				if (i >= minY&&i <= maxY){
 					if (j >= minX&&j <= maxX){
@@ -179,8 +178,8 @@ void two(int pole[][10]){
 			minY = y1;
 		}		//Нахождение максимального и минимального
 
-		for (int i = 0; i < POLE_SIZE; i++){
-			for (int j = 0; j < POLE_SIZE; j++){
+		for (int i = 0; i < FIELD_SIZE; i++){
+			for (int j = 0; j < FIELD_SIZE; j++){
 
 			if (i >= minY&&i <= maxY){
 				if (j >= minX&&j <= maxX){
@@ -203,15 +202,14 @@ void one(int pole[][10]){
 	cout << "Введите координаты однопалубного корабля (X,Y): ";
 	cin >> x >> y;
 
-	for (int i = 0; i < POLE_SIZE; i++){
-		for (int j = 0; j < POLE_SIZE; j++){
+	for (int i = 0; i < FIELD_SIZE; i++){
+		for (int j = 0; j < FIELD_SIZE; j++){
 			if (i == y&&j == x){
 				pole[i-1][j-1] = 2;
 			}
 		}
 	}
 }
-
 int check(int x1, int x2, int y1, int y2, int k){
 	if (abs(x1 - x2) == k){
 		if (abs(y1 - y2) == k){
@@ -246,6 +244,85 @@ int check(int x1, int x2, int y1, int y2, int k){
 		}
 	}
 }
+void ships(int pole[][10])
+{
+	int oneShip = 4, twoShip = 3, threeShip = 2, fourShip = 1, control = 0, shipControl = 10;
+	while (shipControl != 0)
+	{
+		otrisovka(pole);
+		cout << "Установите оставшиеся корабли:" << endl
+			<< "1. Однопалубные (осталось " << oneShip << ")" << endl
+			<< "2. Двухпалубные (осталось " << twoShip << ")" << endl
+			<< "3. Трехпалубные (осталось " << threeShip << ")" << endl
+			<< "4. Четырехпалубные (осталось " << fourShip << ")" << endl;
+		cin >> control;
+		switch (control)
+		{
+		case 1:
+		{
+			if (oneShip > 0)
+			{
+				one(pole);
+				--shipControl;
+				--oneShip;
+				break;
+			}
+			else
+			{
+				cerr << "У вас не осталось однопалубных кораблей! Повторите попытку." << endl;
+				break;
+			}
+		}
+		case 2:
+		{
+			if (twoShip > 0)
+			{
+				two(pole);
+				--shipControl;
+				--twoShip;
+				break;
+			}
+			else
+			{
+				cerr << "У вас не осталось двухпалубных кораблей! Повторите попытку." << endl;
+				break;
+			}
+		}
+		case 3:
+		{
+			if (threeShip > 0)
+			{
+				three(pole);
+				--shipControl;
+				--twoShip;
+				break;
+			}
+			else
+			{
+				cerr << "У вас не осталось трехпалубных кораблей! Повторите попытку." << endl;
+				break;
+			}
+		}
+		case 4:
+		{
+			if (fourShip > 0)
+			{
+				four(pole);
+				--shipControl;
+				--twoShip;
+				break;
+			}
+			else
+			{
+				cerr << "У вас не осталось четырехпалубных  кораблей! Повторите попытку." << endl;
+				break;
+			}
+		}
+		}
+	}
+	cout << "Вы расстивили все корабли. Начинаем игру!" << endl;
+}
+
 
 int main()
 {
@@ -254,43 +331,7 @@ int main()
 
 	int pole[10][10] = { 0 };
 
-	otrisovka(pole);
-	four(pole);
-	otrisovka(pole);
-
-
-
-	three(pole);
-	otrisovka(pole);
-
-	three(pole);
-	otrisovka(pole);
-
-
-
-
-	two(pole);
-	otrisovka(pole);
-
-	two(pole);
-	otrisovka(pole);
-
-	two(pole);
-	otrisovka(pole);
-
-
-
-	one(pole);
-	otrisovka(pole);
-
-	one(pole);
-	otrisovka(pole);
-
-	one(pole);
-	otrisovka(pole);
-
-	one(pole);
-	otrisovka(pole);
+	ships(pole);
 
 	cin.get();
 	cin.get();
