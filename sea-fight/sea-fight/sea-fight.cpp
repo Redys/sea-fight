@@ -335,18 +335,44 @@ void ships(int pole[][10])
 	}
 	cout << "Вы расстивили все корабли. Начинаем игру!" << endl;
 }
-
+int menu()
+{
+	int control = 0;
+	cout << "Добро пожаловать в Морской Бой!" << endl << endl;
+	cout << "Меню" << endl
+		<< "1. Начать игру" << endl
+		<< "2. Выход" << endl
+		<< "Ввод: ";
+	while (true)
+	{
+		cin >> control;
+		switch (control)
+		{
+		case 1: return 1;
+		case 2: return 2;
+		default: cerr << "Такого пункта меню не существует! Повторите выбор: " << endl;
+			cin.get(); cin.get(); break;
+		}
+	}
+}
+void game(int pole[][10])
+{
+	int globalControl = 0;
+	globalControl = menu();
+	switch (globalControl)
+	{
+	case 1: ships(pole); break;
+	case 2: break;
+	}
+}
 
 int main()
 {
 	setlocale(LC_ALL, "Russian");
 	srand(time(0));
-
 	int pole[10][10] = { 0 };
 
-	ships(pole);
+	game(pole);
 
-	cin.get();
-	cin.get();
 	return 0;
 }
