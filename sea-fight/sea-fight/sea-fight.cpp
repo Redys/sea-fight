@@ -294,7 +294,7 @@ void ships(int pole[][10])
 			{
 				three(pole);
 				--shipControl;
-				--fourShip;
+				--threeShip;
 				break;
 			}
 			else
@@ -309,7 +309,7 @@ void ships(int pole[][10])
 			{
 				four(pole);
 				--shipControl;
-				--twoShip;
+				--fourShip;
 				break;
 			}
 			else
