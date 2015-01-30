@@ -27,6 +27,8 @@ enum ConsoleColor
 	WHITE = FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE,
 };
 int check(int x1, int x2, int y1, int y2, int k); //объявление функции проверки правильности координат
+void radius(int pole[][10]);
+
 
 void otrisovka(int pole[][10])
 {
@@ -66,6 +68,9 @@ void four(int pole[][10]){
 		if (check(x1, x2, y1, y2, k) == 1){
 			break;
 		}
+		else{
+
+		}
 	}
 	int maxX = 0, maxY = 0, minX = 0, minY = 0;
 	if (x1 > x2){
@@ -100,6 +105,9 @@ void four(int pole[][10]){
 			}
 		}
 	}
+
+	radius(pole);
+
 }
 void three(int pole[][10]){
 	int x1 = 0, x2 = 0, y1 = 0, y2 = 0, k = 2;
@@ -219,8 +227,8 @@ int check(int x1, int x2, int y1, int y2, int k){
 		}
 		else{
 			if ((x1 - x2) == 0){
-				cout << "Данные введены правильно!\n\n";
-				return 1;
+					cout << "Данные введены правильно!\n\n";
+					return 1;
 			}
 			else{
 					cout << "Данные введены не верно! Повторите попытку!\n\n";
@@ -231,8 +239,8 @@ int check(int x1, int x2, int y1, int y2, int k){
 	else{
 		if (abs(y1 - y2) == k){
 			if ((x1 - x2) == 0){
-				cout << "Данные введены правильно!\n\n";
-				return 1;
+					cout << "Данные введены правильно!\n\n";
+					return 1;
 			}
 			else{
 					cout << "Данные введены не верно! Повторите попытку!\n\n";
@@ -336,6 +344,48 @@ void ships(int pole[][10])
 	cout << "Вы расстивили все корабли. Начинаем игру!" << endl;
 }
 
+void radius(int pole[][10]){
+	for (int i = 0; i < FIELD_SIZE; i++){
+		for (int j = 0; j < FIELD_SIZE; j++){
+			if (pole[i][j] == 2){
+				if ((pole[i-1][j]!=2)&&(i!=0)){
+					pole[i - 1][j] = 1;
+				}
+
+				if ((pole[i - 1][j - 1] != 2) && (i != 0) && (j != 0)){
+					pole[i - 1][j - 1] = 1;
+				}
+
+				if ((pole[i][j - 1] != 2) && (j != 0)){
+					pole[i][j - 1] = 1;
+				}
+
+				if ((pole[i + 1][j] != 2) && (i != 9)){
+					pole[i + 1][j] = 1;
+				}
+
+				if ((pole[i + 1][j + 1] != 2) && (i != 9) && (j != 9)){
+					pole[i + 1][j + 1] = 1;
+				}
+
+				if ((pole[i][j + 1] != 2) && (j != 9)){
+					pole[i][j + 1] = 1;
+				}
+
+				if ((pole[i - 1][j + 1] != 2) && (i != 0) && (j != 9)){
+					pole[i - 1][j + 1] = 1;
+				}
+
+				if ((pole[i + 1][j - 1] != 2) && (i != 9) && (j != 0)){
+					pole[i + 1][j - 1] = 1;
+				}
+
+			}
+		}
+	}
+
+}
+
 
 int main()
 {
@@ -345,6 +395,7 @@ int main()
 	int pole[10][10] = { 0 };
 
 	ships(pole);
+
 
 	cin.get();
 	cin.get();
