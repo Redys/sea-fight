@@ -4,7 +4,7 @@
 #include <windows.h>
 
 #define FIELD_SIZE 10 //Размер поля
-
+//boooooooo
 using namespace std;
 
 enum ConsoleColor
@@ -335,6 +335,7 @@ void ships(int pole[][10])
 	}
 	cout << "Вы расстивили все корабли. Начинаем игру!" << endl;
 }
+
 int menu()
 {
 	int control = 0;
